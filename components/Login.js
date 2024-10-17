@@ -41,6 +41,23 @@ const Login = () => {
       
     }
   };
+
+
+  let nextButtonStyle = {
+    boxShadow: "none", // Remove default shadow
+    "&:hover": {
+      boxShadow: "none", // Remove hover shadow
+    },
+    width: "auto",
+    background: "blue",
+    display:"flex",
+    paddingTop: "5px",
+    borderRadius:"800px",
+    fontWeight:"500",
+    fontSize: "8px",
+    alignSelf: "flex-end"
+
+  }
   return (
     <>
       <div className="flex justify-center items-center h-screen w-screen bg-gray-200">
@@ -59,7 +76,9 @@ const Login = () => {
                 onChange={hanndleChange}
                 name="email"
                 id="outlined-basic"
-                className="mb-3 "
+                sx={{
+                  marginBottom : "10px",
+                }}
                 label="Email"
                 variant="outlined"
                 size="small"
@@ -89,7 +108,17 @@ const Login = () => {
                       boxShadow: "none", // Remove default shadow
                       "&:hover": {
                         boxShadow: "none", // Remove hover shadow
+
                       },
+
+                      width: "auto",
+                      
+                      display:"flex",
+                      paddingTop: "5px",
+                      borderRadius:"800px",
+                      fontWeight:"500",
+                      fontSize: "8px",
+                      alignSelf: "flex-end"
                     }}
                     variant="contained"
                     className="w-auto hover:bg-blue-100 self-end rounded-2xl pt-[5px] font-semibold capitalize text-[8px]"
@@ -101,14 +130,9 @@ const Login = () => {
                 </Link>
 
                 <Button
-                  sx={{
-                    boxShadow: "none", // Remove default shadow
-                    "&:hover": {
-                      boxShadow: "none", // Remove hover shadow
-                    },
-                  }}
+                  sx={nextButtonStyle}
                   variant="contained"
-                  className="w-auto bg-blue-700 self-end rounded-2xl pt-[5px] font-semibold  text-[8px]"
+                  
                   size="small"
                   onClick={OnSubmite}
                 >

@@ -107,6 +107,22 @@ const Register = () => {
     }
   };
 
+  let nextButtonStyle = {
+    boxShadow: "none", // Remove default shadow
+    "&:hover": {
+      boxShadow: "none", // Remove hover shadow
+    },
+    width: "auto",
+    background: "blue",
+    display:"flex",
+    paddingTop: "5px",
+    borderRadius:"800px",
+    fontWeight:"500",
+    fontSize: "8px",
+    alignSelf: "flex-end"
+
+  }
+
   return (
     <>
       <div className="flex justify-center items-center h-screen w-screen bg-gray-200">
@@ -126,7 +142,9 @@ const Register = () => {
                 error={nameValid}
                 onChange={hanndleChange}
                 id="outlined-basic"
-                className="mb-3 "
+                sx={{
+                  marginBottom : "10px",
+                }}
                 label="Full name"
                 required
                 variant="outlined"
@@ -136,7 +154,9 @@ const Register = () => {
                 name="email"
                 error={emailValid}
                 onChange={hanndleChange}
-                className="mb-3 "
+                sx={{
+                  marginBottom : "10px",
+                }}
                 id="outlined-basic"
                 label="Email"
                 type="Email"
@@ -153,7 +173,9 @@ const Register = () => {
                 label="Password"
                 type="password"
                 variant="outlined"
-                className="mb-3 "
+                sx={{
+                  marginBottom : "10px",
+                }}
                 size="small"
               />
               <TextField
@@ -165,7 +187,9 @@ const Register = () => {
                 label="again type your Password"
                 type="password"
                 variant="outlined"
-                className="mb-3 "
+                sx={{
+                  marginBottom : "10px",
+                }}
                 size="small"
               />
               {otpButton ? (
@@ -180,13 +204,36 @@ const Register = () => {
               )}
 
               <div className="flex lg:justify-end gap-2 mt-8 justify-between ">
+                
                 <Link
-                  className="text-blue-600 text-[11px] mt-1 hover:underline flex items-center justify-center"
+                  className="text-blue-600 text-[11px] mt-1 capitalize flex items-center justify-center"
                   href={"/login"}
                 >
-                  <span className="mr-2">
+                  
+                  <Button
+                    sx={{
+                      boxShadow: "none", // Remove default shadow
+                      "&:hover": {
+                        boxShadow: "none", // Remove hover shadow
+
+                      },
+
+                      width: "auto",
+                      
+                      display:"flex",
+                      paddingTop: "5px",
+                      borderRadius:"800px",
+                      fontWeight:"500",
+                      fontSize: "8px",
+                      alignSelf: "flex-end"
+                    }}
+                    variant="contained"
+                    className="w-auto hover:bg-blue-100 self-end rounded-2xl pt-[5px] font-semibold capitalize text-[8px]"
+                    size="small"
+                    color=""
+                  >
                     if you already register then login
-                  </span>
+                  </Button>
                 </Link>
 
                 {loading ? (
@@ -207,14 +254,9 @@ const Register = () => {
                   </Button>
                 ) : (
                   <Button
-                    sx={{
-                      boxShadow: "none", // Remove default shadow
-                      "&:hover": {
-                        boxShadow: "none", // Remove hover shadow
-                      },
-                    }}
+                    sx={nextButtonStyle}
                     variant="contained"
-                    className="w-auto bg-blue-700 self-end rounded-2xl pt-[5px] font-semibold  text-[8px]"
+                   
                     size="small"
                     onClick={OnSubmitted}
                   >
