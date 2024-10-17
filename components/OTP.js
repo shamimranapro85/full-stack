@@ -13,7 +13,10 @@ const Otp = () => {
   const [loading, setLoading] = useState("");
   const [err, seterr] = useState("");
 
-  let userData = JSON.parse(localStorage.getItem("TemporaryData"));
+  let userData =
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("TemporaryData"))
+      : "";
   const resentEmail = async () => {
     try {
       setLoading("true");
@@ -57,14 +60,15 @@ const Otp = () => {
         otp_data
       );
 
-      
       seterr(responsed.data.message);
       const LoginResponsed = await axios.post(`${backendURL}/user/login`, {
         email: userData.email,
         password: userData.password,
       });
-      localStorage.clear();
-      localStorage.setItem("islogin", LoginResponsed.data.payLoad);
+      if (typeof window !== "undefined") {
+        localStorage.clear();
+        localStorage.setItem("islogin", LoginResponsed.data.payLoad);
+      }
       router.push("/");
     } catch (error) {
       console.log(error);
