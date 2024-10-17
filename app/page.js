@@ -16,15 +16,19 @@ export default function Home() {
   //       token: localStorage.getItem("islogin"),
   //     });
   //     setdata(responsed.data.payLoad);
-     
+
   //   })();
   // }, []);
 
   return (
     <>
       {/* {data ? <DashBoard  name={data.name} email={data.email}/> : <Login />} */}
-      <h1 className="text-red text-center text-6xl capitalize font-bold h-screen flex justify-center items-center">shamim</h1>
-     
+      <h1 className="text-red text-center text-6xl capitalize font-bold h-screen flex justify-center items-center">
+        shamim <br/>
+        shanto <br/>
+        Forhad  
+      </h1>
+
     </>
   );
 }
