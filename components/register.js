@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import { Button, TextField } from "@mui/material";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { Loading_div } from "./small_service/feature";
+import { backendURL, Loading_div } from "./small_service/feature";
 
 const Register = () => {
   const [data, setData] = useState({});
@@ -78,7 +78,7 @@ const Register = () => {
     try {
       setLoading("loading");
       const responsed = await axios.post(
-        "http://localhost:3001/user/register/otp",
+        `${backendURL}/user/register/otp`,
         data
       );
 
