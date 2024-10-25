@@ -21,8 +21,10 @@ const Otp = () => {
     try {
       setLoading("true");
       const responsed = await axios.post(
-        "http://localhost:3001/user/register/otp",
-        userData
+        `${backendURL}/user/register/otp`,
+        userData,{
+          withCredentials: true
+        }
       );
       setLoading("");
       console.log(responsed);
@@ -36,7 +38,7 @@ const Otp = () => {
 
       seterr(error.response.data.message);
     }
-    console.log(userData.password);
+    console.log(userData?.password);
   };
 
   const [data, setData] = useState({});
@@ -57,13 +59,18 @@ const Otp = () => {
 
       const responsed = await axios.post(
         `${backendURL}/user/verification/register`,
-        otp_data
+        otp_data,{
+          withCredentials:true
+        }
       );
 
       seterr(responsed.data.message);
+      //with login----------
       const LoginResponsed = await axios.post(`${backendURL}/user/login`, {
         email: userData.email,
         password: userData.password,
+      },{
+        withCredentials: true
       });
       if (typeof window !== "undefined") {
         localStorage.clear();
@@ -72,8 +79,13 @@ const Otp = () => {
       router.push("/");
     } catch (error) {
       console.log(error);
+      error.response
+      ? seterr(error.response?.data.message)
+      : error.message == "Network Error"
+      ? seterr("bakcend not working because :" + error.message)
+      : "";
 
-      seterr(error.response.data.message);
+     
     }
   };
   return (

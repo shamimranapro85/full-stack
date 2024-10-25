@@ -9,6 +9,8 @@ import { backendURL, Loading_div } from "./small_service/feature";
 
 import { useRouter } from "next/navigation";
 import axios from "axios";
+// import Cookies from 'js-cookie';
+// import { cookies } from "next/headers";
 const Login = () => {
   const [loading, setLoading] = useState("");
   const [err, seterr] = useState("");
@@ -25,23 +27,30 @@ const Login = () => {
   const OnSubmite = async () => {
     try {
       setLoading("loading");
-      const LoginResponsed = await axios.post(`${backendURL}/user/login`, {
-        email: data.email,
-        password: data.password,
-      });
+      const LoginResponsed = await axios.post(
+        `${backendURL}/user/login`,
+        {
+          email: data.email,
+          password: data.password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+
       setLoading("");
-      localStorage.clear();
-      localStorage.setItem("islogin", LoginResponsed.data.payLoad);
       router.push("/");
       window.location.href = "/";
     } catch (error) {
       setLoading("");
-      seterr(error.response.data.message);
+      error.response
+      ? seterr(error.response?.data.message)
+      : error.message == "Network Error"
+      ? seterr("bakcend not working because :" + error.message)
+      : "";
       console.log(error);
-      
     }
   };
-
 
   let nextButtonStyle = {
     boxShadow: "none", // Remove default shadow
@@ -50,14 +59,13 @@ const Login = () => {
     },
     width: "auto",
     background: "blue",
-    display:"flex",
+    display: "flex",
     paddingTop: "5px",
-    borderRadius:"800px",
-    fontWeight:"500",
+    borderRadius: "800px",
+    fontWeight: "500",
     fontSize: "8px",
-    alignSelf: "flex-end"
-
-  }
+    alignSelf: "flex-end",
+  };
   return (
     <>
       <div className="flex justify-center items-center h-screen w-screen bg-gray-200">
@@ -77,7 +85,7 @@ const Login = () => {
                 name="email"
                 id="outlined-basic"
                 sx={{
-                  marginBottom : "10px",
+                  marginBottom: "10px",
                 }}
                 label="Email"
                 variant="outlined"
@@ -108,17 +116,16 @@ const Login = () => {
                       boxShadow: "none", // Remove default shadow
                       "&:hover": {
                         boxShadow: "none", // Remove hover shadow
-
                       },
 
                       width: "auto",
-                      
-                      display:"flex",
+
+                      display: "flex",
                       paddingTop: "5px",
-                      borderRadius:"800px",
-                      fontWeight:"500",
+                      borderRadius: "800px",
+                      fontWeight: "500",
                       fontSize: "8px",
-                      alignSelf: "flex-end"
+                      alignSelf: "flex-end",
                     }}
                     variant="contained"
                     className="w-auto hover:bg-blue-100 self-end rounded-2xl pt-[5px] font-semibold capitalize text-[8px]"
@@ -132,11 +139,10 @@ const Login = () => {
                 <Button
                   sx={nextButtonStyle}
                   variant="contained"
-                  
                   size="small"
                   onClick={OnSubmite}
                 >
-                 {loading ? Loading_div : ""} Next
+                  {loading ? Loading_div : ""} Next
                 </Button>
               </div>
             </div>

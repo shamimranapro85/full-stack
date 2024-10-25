@@ -79,7 +79,8 @@ const Register = () => {
       setLoading("loading");
       const responsed = await axios.post(
         `${backendURL}/user/register/otp`,
-        data
+        data,
+        { withCredentials: true }
       );
 
       setLoading("");
@@ -103,7 +104,11 @@ const Register = () => {
       setLoading("");
       console.log(error);
 
-      seterr(error.response.data.message);
+      error.response
+      ? seterr(error.response?.data.message)
+      : error.message == "Network Error"
+      ? seterr("bakcend not working because :" + error.message)
+      : "";
     }
   };
 
@@ -114,14 +119,13 @@ const Register = () => {
     },
     width: "auto",
     background: "blue",
-    display:"flex",
+    display: "flex",
     paddingTop: "5px",
-    borderRadius:"800px",
-    fontWeight:"500",
+    borderRadius: "800px",
+    fontWeight: "500",
     fontSize: "8px",
-    alignSelf: "flex-end"
-
-  }
+    alignSelf: "flex-end",
+  };
 
   return (
     <>
@@ -143,7 +147,7 @@ const Register = () => {
                 onChange={hanndleChange}
                 id="outlined-basic"
                 sx={{
-                  marginBottom : "10px",
+                  marginBottom: "10px",
                 }}
                 label="Full name"
                 required
@@ -155,7 +159,7 @@ const Register = () => {
                 error={emailValid}
                 onChange={hanndleChange}
                 sx={{
-                  marginBottom : "10px",
+                  marginBottom: "10px",
                 }}
                 id="outlined-basic"
                 label="Email"
@@ -174,7 +178,7 @@ const Register = () => {
                 type="password"
                 variant="outlined"
                 sx={{
-                  marginBottom : "10px",
+                  marginBottom: "10px",
                 }}
                 size="small"
               />
@@ -188,7 +192,7 @@ const Register = () => {
                 type="password"
                 variant="outlined"
                 sx={{
-                  marginBottom : "10px",
+                  marginBottom: "10px",
                 }}
                 size="small"
               />
@@ -204,28 +208,25 @@ const Register = () => {
               )}
 
               <div className="flex lg:justify-end gap-2 mt-8 justify-between ">
-                
                 <Link
                   className="text-blue-600 text-[11px] mt-1 capitalize flex items-center justify-center"
                   href={"/login"}
                 >
-                  
                   <Button
                     sx={{
                       boxShadow: "none", // Remove default shadow
                       "&:hover": {
                         boxShadow: "none", // Remove hover shadow
-
                       },
 
                       width: "auto",
-                      
-                      display:"flex",
+
+                      display: "flex",
                       paddingTop: "5px",
-                      borderRadius:"800px",
-                      fontWeight:"500",
+                      borderRadius: "800px",
+                      fontWeight: "500",
                       fontSize: "8px",
-                      alignSelf: "flex-end"
+                      alignSelf: "flex-end",
                     }}
                     variant="contained"
                     className="w-auto hover:bg-blue-100 self-end rounded-2xl pt-[5px] font-semibold capitalize text-[8px]"
@@ -256,7 +257,6 @@ const Register = () => {
                   <Button
                     sx={nextButtonStyle}
                     variant="contained"
-                   
                     size="small"
                     onClick={OnSubmitted}
                   >
