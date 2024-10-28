@@ -15,19 +15,23 @@ export default function Home() {
 
   useEffect(() => {
     (async () => {
-      let responsed = await axios.post(
-        `${backendURL}/user/login`,
-        {
-          token: Cookies.get("isLogin"),
-        },
-        {
-          withCredentials: true,
-        }
-      );
-      setdata(responsed.data.payLoad);
+      try {
+        let responsed = await axios.post(
+          `${backendURL}/user/login`,
+          {
+            token: Cookies.get("isLogin"),
+          }
+        );
+        setdata(responsed.data.payLoad);
+      } catch (error) {
+        console.log(error);
+        setdata({
+          name: "server error",
+          email:
+            "please contact with develeoper " + error.response.data.message,
+        });
+      }
     })();
-
-
   }, []);
 
   return (
@@ -36,8 +40,8 @@ export default function Home() {
         <nav className="md:flex container py-2 mx-auto px-2 hidden   justify-between items-center">
           <Profile data={data} />
           <div className="md:flex gap-4 hidden items-center">
-            <Link href="/dashboard">Dashboard</Link>
-            <Link href="/product">Product</Link>
+            <Link href="/">Dashboard</Link>
+            <Link href="/user">user</Link>
             <Link href="/product">Product</Link>
             <Link href="/product">Product</Link>
             <Link href="/product">Product</Link>
@@ -87,7 +91,7 @@ const Profile = ({ data }) => {
   return (
     <>
       <div
-        className="h-6 w-6 rounded-full p-4 bg-yellow-300 flex border-2 items-center justify-center border-green-400"
+        className="h-6 w-6 rounded-full p-4 bg-yellow-300 flex border-2 items-center justify-center border-black focus:outline-none focus:ring-2 focus:ring-blue-300 active:translate-y-1 hover:shadow-md hover:border-green-400 hover:text-white transition-all duration-100  hover:bg-gray-700"
         onClick={handleClick}
       >
         S
@@ -111,26 +115,34 @@ const Profile = ({ data }) => {
           },
         }}
       >
-        <div className="flex justify-between" ><Typography sx={{ fontSize: "20px",textTransform: "uppercase", fontWeight: "bold" }}>
-          {data.name}
-        </Typography>
-        <Button
-          sx={{
-            width: "auto",
-            alignSelf: "self-end",
-            fontWeight: "bold",
-            bgcolor: "whitesmooth",
-            borderRadius: "4px",
-            padding: "2px 8px",
-            textTransform: "capitalize",
-            color: "black",
-            border: "1px solid gray",
+        <div className="flex justify-between">
+          <Typography
+            sx={{
+              fontSize: "20px",
+              textTransform: "uppercase",
+              fontWeight: "bold",
+            }}
+          >
+            {data.name}
+          </Typography>
+          <Button
+            sx={{
+              width: "auto",
+              alignSelf: "self-end",
+              fontWeight: "bold",
+              bgcolor: "whitesmooth",
+              borderRadius: "4px",
+              padding: "2px 8px",
+              textTransform: "capitalize",
+              color: "black",
+              border: "1px solid gray",
 
-            fontSize: "10px",
-          }}
-        >
-          your Profile..
-        </Button></div>
+              fontSize: "10px",
+            }}
+          >
+            your Profile..
+          </Button>
+        </div>
         <Typography sx={{}}>{data.email}</Typography>
         <Button
           onClick={LogoutHnade}

@@ -14,7 +14,6 @@ import axios from "axios";
 const Login = () => {
   const [loading, setLoading] = useState("");
   const [err, seterr] = useState("");
-  const router = useRouter();
   const [data, setData] = useState({});
 
   const hanndleChange = async (e) => {
@@ -27,6 +26,8 @@ const Login = () => {
   const OnSubmite = async () => {
     try {
       setLoading("loading");
+
+      
       const LoginResponsed = await axios.post(
         `${backendURL}/user/login`,
         {
@@ -37,10 +38,11 @@ const Login = () => {
           withCredentials: true,
         }
       );
-
+      console.log(LoginResponsed);
+      
       setLoading("");
-      router.push("/");
       window.location.href = "/";
+      return
     } catch (error) {
       setLoading("");
       error.response
