@@ -38,7 +38,6 @@ const Login = () => {
           withCredentials: true,
         }
       );
-      console.log(LoginResponsed);
       
       setLoading("");
       window.location.href = "/";

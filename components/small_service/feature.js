@@ -7,4 +7,4 @@ let Loading_div = (
 // const backendURL = "https://fullstack-backend-rfuv.onrender.com";
 const backendURL = "https://full-stack-backend-topaz.vercel.app";
 
-module.exports = { Loading_div, backendURL };
+module.exports = { Loading_div, backendURL }; 
